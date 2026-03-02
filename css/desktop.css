@@ -47,16 +47,28 @@
     padding: 6px 4px;
     border-radius: 3px;
     cursor: pointer;
-    transition: background 0.1s;
+    transition: all 0.2s var(--ease-smooth, cubic-bezier(0.4, 0, 0.2, 1));
+    transform: translateY(0) scale(1);
 }
 
 .desktop-icon:hover {
     background: rgba(80, 140, 220, 0.3);
+    transform: translateY(-3px) scale(1.05);
+}
+
+.desktop-icon:hover .icon-img {
+    filter: drop-shadow(1px 2px 6px rgba(0, 0, 0, 0.5)) drop-shadow(0 0 12px rgba(100, 180, 255, 0.3));
+}
+
+.desktop-icon:active {
+    transform: translateY(0) scale(0.95);
+    transition-duration: 0.08s;
 }
 
 .desktop-icon.selected {
     background: rgba(80, 140, 220, 0.5);
     outline: 1px dotted rgba(255, 255, 255, 0.6);
+    transform: translateY(-2px) scale(1.03);
 }
 
 .desktop-icon.dragging {
@@ -71,11 +83,17 @@
     align-items: center;
     justify-content: center;
     filter: drop-shadow(1px 1px 2px rgba(0, 0, 0, 0.4));
+    transition: filter 0.2s var(--ease-smooth, cubic-bezier(0.4, 0, 0.2, 1));
 }
 
 .icon-img svg {
     width: 48px;
     height: 48px;
+    transition: transform 0.2s var(--ease-smooth, cubic-bezier(0.4, 0, 0.2, 1));
+}
+
+.desktop-icon:hover .icon-img svg {
+    transform: scale(1.06);
 }
 
 .icon-label {
@@ -86,6 +104,11 @@
     word-break: break-word;
     line-height: 1.2;
     max-width: 70px;
+    transition: text-shadow 0.2s ease;
+}
+
+.desktop-icon:hover .icon-label {
+    text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.9), 0 0 8px rgba(100, 180, 255, 0.4);
 }
 
 /* Windows container */
