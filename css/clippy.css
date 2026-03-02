@@ -1,0 +1,185 @@
+/* ============ CLIPPY ============ */
+#clippy-container {
+    position: fixed;
+    bottom: 60px;
+    right: 20px;
+    z-index: 9800;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 8px;
+    animation: clippyBounce 0.5s ease-out;
+}
+
+@keyframes clippyBounce {
+    0% {
+        transform: translateY(50px) scale(0.5);
+        opacity: 0;
+    }
+
+    60% {
+        transform: translateY(-10px) scale(1.05);
+    }
+
+    100% {
+        transform: translateY(0) scale(1);
+        opacity: 1;
+    }
+}
+
+#clippy-container.hiding {
+    animation: clippyHide 0.3s ease-in forwards;
+}
+
+@keyframes clippyHide {
+    0% {
+        transform: translateY(0) scale(1);
+        opacity: 1;
+    }
+
+    100% {
+        transform: translateY(50px) scale(0.5);
+        opacity: 0;
+    }
+}
+
+/* Speech bubble */
+.clippy-bubble {
+    background: #FFFFCC;
+    border: 2px solid #808080;
+    border-radius: 8px;
+    padding: 12px 16px;
+    max-width: 220px;
+    font-size: 11px;
+    line-height: 1.5;
+    color: #000;
+    position: relative;
+    box-shadow: 2px 2px 6px rgba(0, 0, 0, 0.2);
+}
+
+.clippy-bubble::after {
+    content: '';
+    position: absolute;
+    bottom: -10px;
+    left: 50%;
+    transform: translateX(-50%);
+    border-left: 10px solid transparent;
+    border-right: 10px solid transparent;
+    border-top: 10px solid #FFFFCC;
+}
+
+.clippy-bubble::before {
+    content: '';
+    position: absolute;
+    bottom: -13px;
+    left: 50%;
+    transform: translateX(-50%);
+    border-left: 12px solid transparent;
+    border-right: 12px solid transparent;
+    border-top: 12px solid #808080;
+}
+
+#clippy-text {
+    margin: 0;
+    -webkit-user-select: text;
+    user-select: text;
+}
+
+.clippy-dismiss {
+    position: absolute;
+    top: 2px;
+    right: 6px;
+    font-size: 12px;
+    color: #808080;
+    cursor: pointer;
+    padding: 2px;
+}
+
+.clippy-dismiss:hover {
+    color: #000;
+}
+
+/* Clippy character (CSS art) */
+.clippy-character {
+    width: 60px;
+    height: 70px;
+    position: relative;
+}
+
+.clippy-body {
+    width: 50px;
+    height: 60px;
+    background: linear-gradient(135deg, #C0C0C0, #E8E8E8, #C0C0C0);
+    border: 2px solid #808080;
+    border-radius: 50% 50% 45% 45%;
+    position: relative;
+    margin: 0 auto;
+    box-shadow: 2px 2px 6px rgba(0, 0, 0, 0.2);
+}
+
+/* Eyes */
+.clippy-eye {
+    position: absolute;
+    width: 12px;
+    height: 16px;
+    background: #FFFFFF;
+    border: 2px solid #404040;
+    border-radius: 50%;
+    top: 14px;
+}
+
+.left-eye {
+    left: 8px;
+}
+
+.right-eye {
+    right: 8px;
+}
+
+.clippy-pupil {
+    width: 6px;
+    height: 6px;
+    background: #000;
+    border-radius: 50%;
+    position: absolute;
+    bottom: 3px;
+    left: 50%;
+    transform: translateX(-50%);
+    animation: clippyLook 4s ease-in-out infinite;
+}
+
+@keyframes clippyLook {
+
+    0%,
+    100% {
+        transform: translateX(-50%);
+    }
+
+    25% {
+        transform: translateX(-80%);
+    }
+
+    75% {
+        transform: translateX(-20%);
+    }
+}
+
+/* Eyebrows */
+.clippy-brow {
+    position: absolute;
+    width: 14px;
+    height: 3px;
+    background: #404040;
+    border-radius: 2px;
+    top: 10px;
+}
+
+.left-brow {
+    left: 7px;
+    transform: rotate(-5deg);
+}
+
+.right-brow {
+    right: 7px;
+    transform: rotate(5deg);
+}
