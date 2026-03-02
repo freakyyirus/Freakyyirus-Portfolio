@@ -172,6 +172,7 @@
     Sounds.play('startup');
     Taskbar.init();
     RecycleBin.init();
+    ContextMenu.init();
     Clippy.init();
     initDesktopIcons();
     initKonamiCode();
@@ -239,6 +240,8 @@
       case 'resume': openResume(); break;
       case 'contact': openContact(); break;
       case 'competitions': openCompetitions(); break;
+      case 'notepad': openNotepad(); break;
+      case 'calculator': openCalculator(); break;
     }
   };
 
@@ -784,6 +787,156 @@
       text.textContent = "🎮 KONAMI CODE ACTIVATED!\n\nYou're a true gamer AND developer.\nRespect. 🫡\n\n+30 lives granted!";
       container.classList.remove('hidden', 'hiding');
     }
+  }
+
+  // ===== NOTEPAD =====
+  let notepadCount = 0;
+  function openNotepad() {
+    notepadCount++;
+    const noteId = notepadCount > 1 ? `notepad-${notepadCount}` : 'notepad';
+    WindowManager.create({
+      id: noteId,
+      title: `Untitled - Notepad`,
+      icon: '📝',
+      width: 520,
+      height: 380,
+      statusbar: false,
+      content: `<div class="notepad-container">
+        <div class="notepad-menubar">
+          <span>File</span><span>Edit</span><span>Format</span><span>View</span><span>Help</span>
+        </div>
+        <textarea class="notepad-textarea" placeholder="Start typing..."></textarea>
+        <div class="notepad-statusbar">
+          <span class="notepad-status-pos">Ln 1, Col 1</span>
+        </div>
+      </div>`,
+      onInit: (win) => {
+        const textarea = win.querySelector('.notepad-textarea');
+        const statusPos = win.querySelector('.notepad-status-pos');
+        if (textarea && statusPos) {
+          textarea.addEventListener('input', () => {
+            const val = textarea.value.substring(0, textarea.selectionStart);
+            const lines = val.split('\n');
+            const ln = lines.length;
+            const col = lines[lines.length - 1].length + 1;
+            statusPos.textContent = `Ln ${ln}, Col ${col}`;
+          });
+          textarea.addEventListener('click', () => {
+            const val = textarea.value.substring(0, textarea.selectionStart);
+            const lines = val.split('\n');
+            statusPos.textContent = `Ln ${lines.length}, Col ${lines[lines.length - 1].length + 1}`;
+          });
+          setTimeout(() => textarea.focus(), 100);
+        }
+      },
+    });
+  }
+
+  // ===== CALCULATOR =====
+  function openCalculator() {
+    WindowManager.create({
+      id: 'calculator',
+      title: 'Calculator',
+      icon: '🧮',
+      width: 260,
+      height: 340,
+      resizable: false,
+      statusbar: false,
+      content: `<div class="calculator">
+        <div class="calc-display" id="calc-display">0</div>
+        <div class="calc-buttons">
+          <button class="calc-btn clear" data-action="clear">C</button>
+          <button class="calc-btn clear" data-action="backspace">⌫</button>
+          <button class="calc-btn operator" data-action="%">%</button>
+          <button class="calc-btn operator" data-action="/">÷</button>
+          <button class="calc-btn" data-action="7">7</button>
+          <button class="calc-btn" data-action="8">8</button>
+          <button class="calc-btn" data-action="9">9</button>
+          <button class="calc-btn operator" data-action="*">×</button>
+          <button class="calc-btn" data-action="4">4</button>
+          <button class="calc-btn" data-action="5">5</button>
+          <button class="calc-btn" data-action="6">6</button>
+          <button class="calc-btn operator" data-action="-">−</button>
+          <button class="calc-btn" data-action="1">1</button>
+          <button class="calc-btn" data-action="2">2</button>
+          <button class="calc-btn" data-action="3">3</button>
+          <button class="calc-btn operator" data-action="+">+</button>
+          <button class="calc-btn" data-action="0" style="grid-column: span 2;">0</button>
+          <button class="calc-btn" data-action=".">.</button>
+          <button class="calc-btn equals" data-action="=">=</button>
+        </div>
+      </div>`,
+      onInit: (win) => {
+        let current = '0';
+        let previous = '';
+        let operator = '';
+        let resetNext = false;
+        const display = win.querySelector('#calc-display');
+
+        function updateDisplay() {
+          display.textContent = current;
+        }
+
+        win.querySelectorAll('.calc-btn').forEach(btn => {
+          btn.addEventListener('click', () => {
+            const action = btn.dataset.action;
+            Sounds.play('click');
+
+            if (action >= '0' && action <= '9') {
+              if (resetNext) { current = ''; resetNext = false; }
+              current = current === '0' ? action : current + action;
+              updateDisplay();
+              return;
+            }
+
+            if (action === '.') {
+              if (resetNext) { current = '0'; resetNext = false; }
+              if (!current.includes('.')) current += '.';
+              updateDisplay();
+              return;
+            }
+
+            if (action === 'clear') {
+              current = '0'; previous = ''; operator = '';
+              updateDisplay();
+              return;
+            }
+
+            if (action === 'backspace') {
+              current = current.length > 1 ? current.slice(0, -1) : '0';
+              updateDisplay();
+              return;
+            }
+
+            if (['+', '-', '*', '/', '%'].includes(action)) {
+              if (previous && operator && !resetNext) {
+                try {
+                  current = String(eval(`${previous} ${operator} ${current}`));
+                } catch { current = 'Error'; }
+              }
+              previous = current;
+              operator = action;
+              resetNext = true;
+              updateDisplay();
+              return;
+            }
+
+            if (action === '=') {
+              if (previous && operator) {
+                try {
+                  current = String(eval(`${previous} ${operator} ${current}`));
+                  if (current === 'Infinity' || current === 'NaN') current = 'Error';
+                } catch { current = 'Error'; }
+                previous = '';
+                operator = '';
+                resetNext = true;
+                updateDisplay();
+              }
+            }
+          });
+        });
+      },
+    });
   }
 
   // ===== INITIALIZE =====
