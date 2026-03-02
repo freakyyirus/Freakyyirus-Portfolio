@@ -1,253 +1,310 @@
-/* ============ TERMINAL ============ */
+/* ============ TERMINAL EMULATOR ============ */
 const Terminal = (() => {
-    const COMMANDS = {
-        help: () => `Available commands:
-  help        - Show this help message
-  dir         - List project files
-  ls          - Alias for dir
-  whoami      - About the developer
-  projects    - List projects with details
-  skills      - List technical skills
-  contact     - Show contact information
-  echo [msg]  - Echo a message
-  clear / cls - Clear the terminal
-  date        - Show current date and time
-  ver         - Show system version
-  secret      - ???
-  bsod        - ???
-  exit        - Close terminal`,
+    let terminalEl = null;
+    let outputEl = null;
+    let inputEl = null;
+    let history = [];
+    let historyIndex = -1;
 
-        dir: () => `
- Volume in drive C has no label.
- Volume Serial Number is 1337-CAFE
-
- Directory of C:\\Developer\\Portfolio
-
-03/02/2026  11:00 PM    <DIR>          .
-03/02/2026  11:00 PM    <DIR>          ..
-03/02/2026  10:30 PM    <DIR>          Projects
-03/02/2026  10:30 PM    <DIR>          Skills
-03/02/2026  10:30 PM         4,096     about.txt
-03/02/2026  10:30 PM         2,048     contact.txt
-03/02/2026  10:30 PM         8,192     resume.pdf
-               3 File(s)         14,336 bytes
-               4 Dir(s)     999,999,999 bytes free`,
-
-        ls: () => COMMANDS.dir(),
-
-        whoami: () => `
-╔════════════════════════════════════════╗
-║          DEVELOPER PROFILE            ║
-╠════════════════════════════════════════╣
-║  Name:     Full Stack Developer       ║
-║  Role:     Software Engineer          ║
-║  Level:    Senior                     ║
-║  OS:       Windows XP (Portfolio Ed.) ║
-║  Uptime:   Passionate since day one   ║
-╚════════════════════════════════════════╝
-
-Building beautiful, functional web
-applications with modern technologies.
-Passionate about clean code, great UX,
-and pushing the boundaries of what's
-possible on the web.`,
-
-        projects: () => `
-┌─────────────────────────────────────────┐
-│            MY PROJECTS                  │
-├─────────────────────────────────────────┤
-│                                         │
-│  [1] CodeBoard                          │
-│      Competitive programming dashboard  │
-│      Tech: React, Next.js, Supabase     │
-│                                         │
-│  [2] Portfolio OS                        │
-│      Windows XP themed portfolio        │
-│      Tech: HTML, CSS, JavaScript        │
-│                                         │
-│  [3] AI Code Judge                      │
-│      AI-powered code review system      │
-│      Tech: Python, OpenAI, FastAPI      │
-│                                         │
-│  [4] MonQuest                           │
-│      Monster collection adventure game  │
-│      Tech: JavaScript, Canvas, Node.js  │
-│                                         │
-│  Type 'projects' in the Projects folder │
-│  for more details and live demos.       │
-└─────────────────────────────────────────┘`,
-
-        skills: () => `
-Technical Skills:
-━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-  Languages:   JavaScript, TypeScript, Python, Java, C++
-  Frontend:    React, Next.js, Vue.js, HTML/CSS, Tailwind
-  Backend:     Node.js, Express, FastAPI, Django
-  Database:    PostgreSQL, MongoDB, Supabase, Firebase
-  DevOps:      Docker, AWS, Vercel, GitHub Actions
-  Tools:       Git, VS Code, Figma, Linux
-━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━`,
-
-        contact: () => `
-╔══════════════════════════════════════╗
-║          CONTACT INFO                ║
-╠══════════════════════════════════════╣
-║  📧 Email:    dev@portfolio.com      ║
-║  🐙 GitHub:   github.com/developer   ║
-║  💼 LinkedIn: linkedin.com/in/dev    ║
-║  🌐 Website:  portfolio.dev          ║
-║  🐦 Twitter:  @developer             ║
-╚══════════════════════════════════════╝
-
-Feel free to reach out for collaborations,
-job opportunities, or just to chat!`,
-
-        date: () => {
-            const now = new Date();
-            return `Current Date: ${now.toLocaleDateString('en-US', { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' })}
-Current Time: ${now.toLocaleTimeString('en-US')}`;
-        },
-
-        ver: () => `
-Microsoft Windows XP [Version 10.0.2026]
-Portfolio Edition - Custom Build
-(c) Developer. All rights reserved.`,
-
-        secret: () => `
-🎉 You found a secret!
-
-"Any sufficiently advanced CSS is
- indistinguishable from magic."
-    - Arthur C. Clarke (probably)
-
-Try the Konami Code for another surprise!
-↑ ↑ ↓ ↓ ← → ← → B A`,
-
-        bsod: () => {
-            setTimeout(() => {
-                if (typeof triggerBSOD === 'function') triggerBSOD();
-            }, 500);
-            return 'FATAL ERROR: System crash imminent...';
-        },
-
-        echo: (args) => args.join(' ') || '',
-
-        exit: () => {
-            setTimeout(() => WindowManager.close('terminal'), 100);
-            return 'Closing terminal...';
-        },
-    };
-
-    function processCommand(cmd) {
-        const trimmed = cmd.trim();
-        if (!trimmed) return '';
-
-        const parts = trimmed.split(/\s+/);
-        const command = parts[0].toLowerCase();
-        const args = parts.slice(1);
-
-        if (command === 'clear' || command === 'cls') {
-            return '__CLEAR__';
-        }
-
-        if (COMMANDS[command]) {
-            if (typeof COMMANDS[command] === 'function') {
-                return COMMANDS[command](args);
-            }
-            return COMMANDS[command];
-        }
-
-        return `'${parts[0]}' is not recognized as an internal or external command,
-operable program or batch file. Type 'help' for available commands.`;
+    function getHTML() {
+        return `<div class="terminal" id="terminal-app">
+      <div class="terminal-output" id="terminal-output">
+        <div class="terminal-line">Microsoft Windows XP [Version 10.0.2026]</div>
+        <div class="terminal-line">(C) Full-Stack AI/ML Developer Portfolio</div>
+        <div class="terminal-line">&nbsp;</div>
+        <div class="terminal-line">Type 'help' for available commands.</div>
+        <div class="terminal-line">&nbsp;</div>
+      </div>
+      <div class="terminal-input-line">
+        <span class="terminal-prompt">C:\\Developer&gt; </span>
+        <input type="text" class="terminal-input" id="terminal-input" spellcheck="false" autocomplete="off" autocapitalize="off">
+      </div>
+    </div>`;
     }
 
-    return {
-        getHTML() {
-            return `<div class="terminal-container" id="terminal-body">
-        <div class="terminal-output" id="terminal-output">
-          <div class="terminal-line info">Microsoft Windows XP [Version 10.0.2026]</div>
-          <div class="terminal-line info">(c) Developer Portfolio. All rights reserved.</div>
-          <div class="terminal-line info">Type 'help' for available commands.</div>
-          <div class="terminal-line">&nbsp;</div>
-        </div>
-        <div class="terminal-input-line">
-          <span class="terminal-prompt">C:\\Developer&gt; </span>
-          <input type="text" class="terminal-input" id="terminal-input" autocomplete="off" spellcheck="false" autofocus>
-        </div>
-      </div>`;
-        },
+    function init(win) {
+        terminalEl = win.querySelector('#terminal-app');
+        outputEl = win.querySelector('#terminal-output');
+        inputEl = win.querySelector('#terminal-input');
 
-        init(windowEl) {
-            const input = windowEl.querySelector('#terminal-input');
-            const output = windowEl.querySelector('#terminal-output');
-            const container = windowEl.querySelector('#terminal-body');
+        if (!inputEl) return;
 
-            if (!input || !output) return;
-
-            const history = [];
-            let historyIndex = -1;
-
-            input.addEventListener('keydown', (e) => {
-                if (e.key === 'Enter') {
-                    const cmd = input.value;
-
-                    // Add command to output
-                    const cmdLine = document.createElement('div');
-                    cmdLine.className = 'terminal-line command';
-                    cmdLine.textContent = `C:\\Developer> ${cmd}`;
-                    output.appendChild(cmdLine);
-
-                    // Process command
-                    const result = processCommand(cmd);
-
-                    if (result === '__CLEAR__') {
-                        output.innerHTML = '';
-                    } else if (result) {
-                        const resultLine = document.createElement('div');
-                        resultLine.className = 'terminal-line response';
-                        resultLine.textContent = result;
-                        output.appendChild(resultLine);
-                    }
-
-                    // Add blank line
-                    const blank = document.createElement('div');
-                    blank.className = 'terminal-line';
-                    blank.innerHTML = '&nbsp;';
-                    output.appendChild(blank);
-
-                    // History
-                    if (cmd.trim()) {
-                        history.unshift(cmd);
-                    }
+        inputEl.addEventListener('keydown', (e) => {
+            if (e.key === 'Enter') {
+                const cmd = inputEl.value.trim();
+                if (cmd) {
+                    history.unshift(cmd);
                     historyIndex = -1;
-
-                    input.value = '';
-                    container.scrollTop = container.scrollHeight;
-                } else if (e.key === 'ArrowUp') {
-                    e.preventDefault();
-                    if (historyIndex < history.length - 1) {
-                        historyIndex++;
-                        input.value = history[historyIndex];
-                    }
-                } else if (e.key === 'ArrowDown') {
-                    e.preventDefault();
-                    if (historyIndex > 0) {
-                        historyIndex--;
-                        input.value = history[historyIndex];
-                    } else {
-                        historyIndex = -1;
-                        input.value = '';
-                    }
+                    executeCommand(cmd);
+                } else {
+                    addLine(`C:\\Developer> `);
                 }
-            });
+                inputEl.value = '';
+            }
 
-            // Focus input when clicking terminal
-            container.addEventListener('click', () => {
-                input.focus();
-            });
+            if (e.key === 'ArrowUp') {
+                e.preventDefault();
+                if (historyIndex < history.length - 1) {
+                    historyIndex++;
+                    inputEl.value = history[historyIndex];
+                }
+            }
 
-            // Auto-focus
-            setTimeout(() => input.focus(), 100);
+            if (e.key === 'ArrowDown') {
+                e.preventDefault();
+                if (historyIndex > 0) {
+                    historyIndex--;
+                    inputEl.value = history[historyIndex];
+                } else {
+                    historyIndex = -1;
+                    inputEl.value = '';
+                }
+            }
+        });
+
+        // Click to focus
+        if (terminalEl) {
+            terminalEl.addEventListener('click', () => inputEl.focus());
         }
-    };
+        setTimeout(() => inputEl.focus(), 100);
+    }
+
+    function addLine(text) {
+        if (!outputEl) return;
+        const line = document.createElement('div');
+        line.className = 'terminal-line';
+        line.innerHTML = text;
+        outputEl.appendChild(line);
+        outputEl.scrollTop = outputEl.scrollHeight;
+    }
+
+    function executeCommand(cmd) {
+        addLine(`<span class="terminal-prompt">C:\\Developer&gt;</span> ${escapeHTML(cmd)}`);
+
+        const parts = cmd.split(' ');
+        const command = parts[0].toLowerCase();
+        const args = parts.slice(1).join(' ');
+
+        switch (command) {
+            case 'help':
+                addLine('');
+                addLine('Available commands:');
+                addLine('');
+                addLine('    help        - Show this help message');
+                addLine('    dir / ls    - List project files');
+                addLine('    whoami      - About the developer');
+                addLine('    projects    - List projects with details');
+                addLine('    skills      - List technical skills');
+                addLine('    contact     - Show contact information');
+                addLine('    resume      - Open resume');
+                addLine('    achievements- Show competitive programming stats');
+                addLine('    echo [msg]  - Echo a message');
+                addLine('    clear / cls - Clear the terminal');
+                addLine('    date        - Show current date and time');
+                addLine('    ver         - Show system version');
+                addLine('    secret      - ???');
+                addLine('    bsod        - ???');
+                addLine('    exit        - Close terminal');
+                break;
+
+            case 'dir':
+            case 'ls':
+                addLine('');
+                addLine(' Volume in drive C has no label.');
+                addLine(' Volume Serial Number is DEV-AI2026');
+                addLine('');
+                addLine(' Directory of C:\\Developer\\');
+                addLine('');
+                addLine(' 03/02/2026  11:30 PM    &lt;DIR&gt;          .');
+                addLine(' 03/02/2026  11:30 PM    &lt;DIR&gt;          ..');
+                addLine(' 03/02/2026  11:30 PM    &lt;DIR&gt;          AI-Projects');
+                addLine(' 03/02/2026  11:30 PM    &lt;DIR&gt;          Full-Stack-Apps');
+                addLine(' 03/02/2026  11:30 PM    &lt;DIR&gt;          Competitive-Programming');
+                addLine(' 03/02/2026  11:30 PM    &lt;DIR&gt;          ML-Models');
+                addLine(' 03/02/2026  11:30 PM    &lt;DIR&gt;          Open-Source');
+                addLine(' 03/02/2026  10:00 PM         4,096      resume.pdf');
+                addLine(' 03/02/2026  10:00 PM         2,048      skills.json');
+                addLine(' 03/02/2026  10:00 PM         1,024      README.md');
+                addLine('               3 File(s)         7,168 bytes');
+                addLine('               7 Dir(s)    ∞ bytes free');
+                break;
+
+            case 'whoami':
+                addLine('');
+                addLine('  ═══════════════════════════════════════════');
+                addLine('  ║  Full-Stack AI/ML Engineer              ║');
+                addLine('  ═══════════════════════════════════════════');
+                addLine('');
+                addLine('  Passionate developer specializing in AI,');
+                addLine('  Machine Learning, and scalable web systems.');
+                addLine('');
+                addLine('  » Building LLM-powered apps, ML pipelines,');
+                addLine('    and production systems end-to-end.');
+                addLine('  » Competitive programmer on Codeforces &');
+                addLine('    LeetCode (1000+ problems solved).');
+                addLine('  » B.Tech CS — AI/ML specialization.');
+                addLine('');
+                addLine('  Currently focused on: LLMs, Deep Learning,');
+                addLine('  Computer Vision, and Full-Stack Development.');
+                addLine('');
+                addLine('  "The best code is no code. But when you');
+                addLine('   must code — make it intelligent." 🤖');
+                break;
+
+            case 'projects':
+                addLine('');
+                addLine('  ┌──────────────────────────────────────────┐');
+                addLine('  │  📊  CodeBoard                           │');
+                addLine('  │  └─ CP dashboard: track Codeforces,      │');
+                addLine('  │     LeetCode ratings + AI study roadmaps  │');
+                addLine('  ├──────────────────────────────────────────┤');
+                addLine('  │  🤖  AI Code Judge                       │');
+                addLine('  │  └─ LLM-powered code review: complexity  │');
+                addLine('  │     analysis, optimization suggestions    │');
+                addLine('  ├──────────────────────────────────────────┤');
+                addLine('  │  🖥️  Portfolio OS                        │');
+                addLine('  │  └─ This Windows XP portfolio           │');
+                addLine('  │     (HTML/CSS/JS, no frameworks!)         │');
+                addLine('  ├──────────────────────────────────────────┤');
+                addLine('  │  🐲  MonQuest                            │');
+                addLine('  │  └─ Monster adventure game with AI       │');
+                addLine('  │     opponents and multiplayer             │');
+                addLine('  ├──────────────────────────────────────────┤');
+                addLine('  │  👁️  Smart Vision                        │');
+                addLine('  │  └─ Real-time object detection with      │');
+                addLine('  │     YOLO and OpenCV, GPU-accelerated      │');
+                addLine('  ├──────────────────────────────────────────┤');
+                addLine('  │  💬  LLM Chatbot                         │');
+                addLine('  │  └─ RAG chatbot: chat with any document  │');
+                addLine('  │     using LangChain + vector embeddings   │');
+                addLine('  └──────────────────────────────────────────┘');
+                addLine('');
+                addLine('  Type "open projects" in desktop to view details.');
+                break;
+
+            case 'skills':
+                addLine('');
+                addLine('  🤖 AI / ML / Deep Learning:');
+                addLine('    ████████████████████░ TensorFlow / Keras');
+                addLine('    ███████████████████░░ PyTorch');
+                addLine('    ████████████████████░ LLMs / LangChain');
+                addLine('    ██████████████████░░░ Computer Vision');
+                addLine('    █████████████████████ scikit-learn / Pandas');
+                addLine('');
+                addLine('  🌐 Full-Stack Development:');
+                addLine('    █████████████████████ React / Next.js');
+                addLine('    ████████████████████░ Node.js / Express');
+                addLine('    ████████████████████░ Python / FastAPI');
+                addLine('    ████████████████████░ TypeScript');
+                addLine('');
+                addLine('  🗄️  Cloud & DevOps:');
+                addLine('    ██████████████████░░░ AWS / Docker');
+                addLine('    ███████████████████░░ PostgreSQL / MongoDB');
+                addLine('    █████████████████████ Git / GitHub Actions');
+                break;
+
+            case 'contact':
+                addLine('');
+                addLine('  ╔══════════════════════════════════════════╗');
+                addLine('  ║  📧 Email:    your.email@gmail.com       ║');
+                addLine('  ║  🐙 GitHub:   github.com/freakyyirus      ║');
+                addLine('  ║  💼 LinkedIn: linkedin.com/in/yourprofile  ║');
+                addLine('  ║  🐦 Twitter:  @yourhandle                 ║');
+                addLine('  ║  🌐 Website:  yourportfolio.dev            ║');
+                addLine('  ╚══════════════════════════════════════════╝');
+                addLine('');
+                addLine('  Open for collaborations and opportunities!');
+                break;
+
+            case 'resume':
+                addLine('');
+                addLine('  Opening resume...');
+                if (typeof openApp === 'function') openApp('resume');
+                break;
+
+            case 'achievements':
+                addLine('');
+                addLine('  🏆 Competitive Programming Stats:');
+                addLine('  ─────────────────────────────────');
+                addLine('  🔴 Codeforces   — Active rated contestant');
+                addLine('  🟡 LeetCode     — 500+ problems solved');
+                addLine('  🟤 CodeChef     — Active participant');
+                addLine('  ⭐ HackerRank   — 5★ Problem Solving');
+                addLine('');
+                addLine('  Expertise: DP, Graphs, Binary Search,');
+                addLine('  Segment Trees, Number Theory, Greedy');
+                addLine('');
+                addLine('  Total problems: 1000+ across all platforms');
+                break;
+
+            case 'echo':
+                addLine(args || '');
+                break;
+
+            case 'clear':
+            case 'cls':
+                if (outputEl) outputEl.innerHTML = '';
+                break;
+
+            case 'date':
+                addLine('');
+                addLine(`  Current date: ${new Date().toLocaleDateString('en-US', { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' })}`);
+                addLine(`  Current time: ${new Date().toLocaleTimeString()}`);
+                break;
+
+            case 'ver':
+                addLine('');
+                addLine('  Microsoft Windows XP [Portfolio Edition]');
+                addLine('  Version 10.0.2026 — AI/ML Developer Build');
+                addLine('  (c) Full-Stack Developer. All rights reserved.');
+                break;
+
+            case 'secret':
+                addLine('');
+                addLine('  🔓 SECRET UNLOCKED');
+                addLine('  ─────────────────');
+                addLine('  "The only way to do great work is to love');
+                addLine('   what you do." — Steve Jobs');
+                addLine('');
+                addLine('  Here\'s what you won\'t find on my resume:');
+                addLine('  → I\'ve debugged code at 3 AM more often');
+                addLine('    than I care to admit');
+                addLine('  → I trained my first neural net on a laptop');
+                addLine('    without a GPU (never again)');
+                addLine('  → I once solved a DP problem in my sleep');
+                addLine('  → This entire portfolio is framework-free! 🎉');
+                addLine('');
+                addLine('  Try the Konami Code: ↑↑↓↓←→←→BA 🎮');
+                break;
+
+            case 'bsod':
+                addLine('');
+                addLine('  ⚠️  Initiating Blue Screen of Death...');
+                setTimeout(() => { if (typeof triggerBSOD === 'function') triggerBSOD(); }, 800);
+                break;
+
+            case 'exit':
+                addLine('');
+                addLine('  Goodbye! 👋');
+                setTimeout(() => {
+                    WindowManager.close('terminal');
+                }, 500);
+                break;
+
+            default:
+                addLine('');
+                addLine(`  '${escapeHTML(command)}' is not recognized as an internal`);
+                addLine('  or external command, operable program or batch file.');
+                addLine('');
+                addLine('  Type "help" for available commands.');
+                break;
+        }
+        addLine('');
+    }
+
+    function escapeHTML(str) {
+        return str.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
+    }
+
+    return { getHTML, init };
 })();
