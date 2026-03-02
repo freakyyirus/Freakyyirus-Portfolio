@@ -1,11 +1,52 @@
 /* ============ CSS RESET & BASE ============ */
-*, *::before, *::after {
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap');
+
+:root {
+  /* XP Refined Color Palette */
+  --xp-blue-dark: #003399;
+  --xp-blue-mid: #0052CC;
+  --xp-blue-light: #1a5fb4;
+  --xp-blue-accent: #3a7bd5;
+  --xp-green: #4e9a06;
+  --xp-green-bright: #5bc214;
+  --xp-red: #D32F2F;
+  --xp-yellow: #FFB700;
+  --xp-orange: #FF6D00;
+  --xp-text: #1a1a2e;
+  --xp-text-light: #555;
+  --xp-bg: #ECE9D8;
+  --xp-bg-light: #F5F3EB;
+  --xp-border: #ACA899;
+
+  /* Shadows */
+  --shadow-soft: 0 4px 16px rgba(0, 0, 0, 0.12);
+  --shadow-hover: 0 8px 32px rgba(0, 0, 0, 0.18);
+  --shadow-window: 2px 3px 12px rgba(0, 0, 0, 0.35);
+
+  /* Gradients */
+  --xp-titlebar: linear-gradient(180deg, #0A246A 0%, #3A6EA5 8%, #0A246A 90%);
+  --xp-titlebar-active: linear-gradient(180deg, #0054E3 0%, #3B82D9 8%, #0054E3 90%);
+  --xp-taskbar-gradient: linear-gradient(180deg, #1f3d99 0%, #1f3d99 3%, #003399 95%, #001a66 100%);
+  --xp-start-gradient: linear-gradient(180deg, #388E3C 0%, #2E7D32 50%, #1B5E20 100%);
+
+  /* Transitions */
+  --ease-smooth: cubic-bezier(0.4, 0, 0.2, 1);
+  --ease-bounce: cubic-bezier(0.34, 1.56, 0.64, 1);
+  --transition-fast: 0.15s var(--ease-smooth);
+  --transition-normal: 0.25s var(--ease-smooth);
+  --transition-slow: 0.4s var(--ease-smooth);
+}
+
+*,
+*::before,
+*::after {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
 }
 
-html, body {
+html,
+body {
   width: 100%;
   height: 100%;
   overflow: hidden;
@@ -16,6 +57,19 @@ html, body {
   user-select: none;
   cursor: default;
   background: #000;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-rendering: optimizeLegibility;
+}
+
+/* Terminal & code elements use JetBrains Mono */
+.terminal,
+.terminal-input,
+.terminal-output,
+code,
+pre,
+.monospace {
+  font-family: 'JetBrains Mono', 'Consolas', 'Courier New', monospace !important;
 }
 
 button {
@@ -38,7 +92,8 @@ a {
   text-decoration: none;
 }
 
-img, svg {
+img,
+svg {
   display: block;
 }
 
@@ -57,4 +112,197 @@ img, svg {
 
 .screen.active {
   display: flex;
+}
+
+/* ============ CONTEXT MENU ============ */
+.context-menu {
+  position: fixed;
+  background: var(--xp-bg);
+  border: 1px solid #808080;
+  border-right-color: #404040;
+  border-bottom-color: #404040;
+  box-shadow: 2px 2px 6px rgba(0, 0, 0, 0.3);
+  padding: 2px;
+  z-index: 100000;
+  min-width: 180px;
+  font-size: 11px;
+  animation: contextFadeIn 0.1s var(--ease-smooth);
+}
+
+@keyframes contextFadeIn {
+  from {
+    opacity: 0;
+    transform: scale(0.95);
+  }
+
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+.context-menu-item {
+  padding: 4px 24px 4px 28px;
+  cursor: pointer;
+  white-space: nowrap;
+  position: relative;
+  border-radius: 2px;
+  color: var(--xp-text);
+}
+
+.context-menu-item:hover {
+  background: var(--xp-blue-dark);
+  color: white;
+}
+
+.context-menu-item .ctx-icon {
+  position: absolute;
+  left: 6px;
+  top: 3px;
+  font-size: 12px;
+}
+
+.context-menu-separator {
+  height: 1px;
+  background: #ACA899;
+  margin: 3px 2px;
+}
+
+.context-menu-item.disabled {
+  color: #808080;
+  pointer-events: none;
+}
+
+/* ============ NOTEPAD APP ============ */
+.notepad-container {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+}
+
+.notepad-menubar {
+  display: flex;
+  gap: 0;
+  padding: 1px 2px;
+  background: var(--xp-bg);
+  border-bottom: 1px solid #ACA899;
+  font-size: 11px;
+}
+
+.notepad-menubar span {
+  padding: 2px 8px;
+  cursor: pointer;
+  border-radius: 2px;
+}
+
+.notepad-menubar span:hover {
+  background: var(--xp-blue-dark);
+  color: white;
+}
+
+.notepad-textarea {
+  flex: 1;
+  border: none;
+  resize: none;
+  padding: 4px 6px;
+  font-family: 'JetBrains Mono', 'Consolas', 'Courier New', monospace;
+  font-size: 12px;
+  line-height: 1.5;
+  background: #FFFFFF;
+  color: #000;
+  outline: none;
+  -webkit-user-select: text;
+  user-select: text;
+}
+
+.notepad-statusbar {
+  display: flex;
+  justify-content: flex-end;
+  padding: 2px 8px;
+  border-top: 1px solid #ACA899;
+  background: var(--xp-bg);
+  font-size: 10px;
+  color: #666;
+}
+
+/* ============ CALCULATOR APP ============ */
+.calculator {
+  background: var(--xp-bg);
+  padding: 8px;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+}
+
+.calc-display {
+  background: #D2E4D0;
+  border: 2px inset #808080;
+  padding: 4px 8px;
+  text-align: right;
+  font-family: 'JetBrains Mono', 'Consolas', monospace;
+  font-size: 20px;
+  color: #000;
+  margin-bottom: 8px;
+  min-height: 36px;
+  line-height: 36px;
+  overflow: hidden;
+}
+
+.calc-buttons {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 3px;
+  flex: 1;
+}
+
+.calc-btn {
+  background: var(--xp-bg-light);
+  border: 1px outset #fff;
+  border-right-color: #808080;
+  border-bottom-color: #808080;
+  padding: 6px 4px;
+  font-size: 12px;
+  font-weight: 500;
+  cursor: pointer;
+  text-align: center;
+  color: var(--xp-text);
+  transition: background var(--transition-fast);
+  border-radius: 1px;
+}
+
+.calc-btn:hover {
+  background: #D8D4C4;
+}
+
+.calc-btn:active {
+  border-style: inset;
+  background: #C8C4B4;
+}
+
+.calc-btn.operator {
+  background: #E8D4D4;
+  color: #CC0000;
+}
+
+.calc-btn.operator:hover {
+  background: #DCC4C4;
+}
+
+.calc-btn.equals {
+  background: #D4D8E8;
+  color: var(--xp-blue-dark);
+  font-weight: 700;
+}
+
+.calc-btn.equals:hover {
+  background: #C4C8D8;
+}
+
+.calc-btn.clear {
+  background: #E8D8D4;
+  color: #CC4400;
+}
+
+.calc-btn.clear:hover {
+  background: #D8C8C4;
 }
