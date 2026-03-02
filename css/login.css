@@ -1,0 +1,364 @@
+/* ============ LOGIN SCREEN ============ */
+#login-screen {
+    flex-direction: column;
+    background: linear-gradient(180deg, #0046A6 0%, #0058CC 15%, #3080D0 30%, #5098DC 50%, #3080D0 70%, #0058CC 85%, #003080 100%);
+    color: white;
+    z-index: 1000;
+}
+
+/* Top bar */
+.login-top-bar {
+    width: 100%;
+    padding: 8px 24px;
+    background: linear-gradient(180deg, #0052BA 0%, #003D8C 100%);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.15);
+    display: flex;
+    align-items: center;
+}
+
+.login-top-text {
+    font-size: 11px;
+    font-weight: bold;
+    color: #fff;
+    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.3);
+}
+
+/* Center area */
+.login-center {
+    flex: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 40px;
+    padding: 40px;
+}
+
+/* Branding */
+.login-branding {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 12px;
+}
+
+.login-windows-logo {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 3px;
+    width: 56px;
+    height: 56px;
+    transform: rotate(-5deg);
+}
+
+.win-flag {
+    border-radius: 2px;
+    box-shadow: 1px 1px 3px rgba(0, 0, 0, 0.3);
+}
+
+.flag-red {
+    background: #FF0000;
+}
+
+.flag-green {
+    background: #00B300;
+}
+
+.flag-blue {
+    background: #0052CC;
+}
+
+.flag-yellow {
+    background: #FFB700;
+}
+
+.login-title {
+    text-align: center;
+}
+
+.login-title-windows {
+    font-size: 36px;
+    font-weight: bold;
+    font-style: italic;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.4);
+    letter-spacing: -1px;
+}
+
+.login-title-xp {
+    font-size: 48px;
+    font-weight: bold;
+    color: #FFA500;
+    text-shadow: 2px 2px 6px rgba(0, 0, 0, 0.5);
+    font-style: italic;
+    margin-left: 4px;
+}
+
+/* Divider */
+.login-divider {
+    width: 2px;
+    height: 200px;
+    background: linear-gradient(180deg, transparent, rgba(255, 255, 255, 0.5), transparent);
+}
+
+/* User panel */
+.login-user-panel {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 16px;
+}
+
+.login-user-tile {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    padding: 12px 20px;
+    border-radius: 8px;
+    background: rgba(255, 255, 255, 0.08);
+    border: 1px solid rgba(255, 255, 255, 0.15);
+    transition: background 0.2s;
+    cursor: pointer;
+}
+
+.login-user-tile:hover {
+    background: rgba(255, 255, 255, 0.15);
+}
+
+.login-avatar {
+    width: 64px;
+    height: 64px;
+    border-radius: 8px;
+    background: rgba(255, 255, 255, 0.1);
+    border: 2px solid rgba(255, 255, 255, 0.3);
+    overflow: hidden;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.login-avatar svg {
+    width: 48px;
+    height: 48px;
+}
+
+.login-user-info {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.login-username {
+    font-size: 16px;
+    font-weight: bold;
+    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.3);
+}
+
+.pin-prompt {
+    font-size: 10px;
+    color: rgba(255, 255, 255, 0.8);
+}
+
+.pin-row {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+}
+
+.pin-inputs {
+    display: flex;
+    gap: 4px;
+}
+
+.pin-digit {
+    width: 28px;
+    height: 28px;
+    text-align: center;
+    font-size: 16px;
+    font-weight: bold;
+    border: 2px solid rgba(255, 255, 255, 0.4);
+    border-radius: 4px;
+    background: rgba(0, 0, 0, 0.3);
+    color: white;
+    caret-color: white;
+}
+
+.pin-digit:focus {
+    border-color: #FFA500;
+    background: rgba(0, 0, 0, 0.5);
+    box-shadow: 0 0 8px rgba(255, 165, 0, 0.4);
+}
+
+.pin-submit-btn {
+    width: 28px;
+    height: 28px;
+    border-radius: 4px;
+    background: linear-gradient(180deg, #88CC44 0%, #55AA22 100%);
+    color: white;
+    font-size: 14px;
+    border: 1px solid #338800;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.15s;
+}
+
+.pin-submit-btn:hover {
+    background: linear-gradient(180deg, #99DD55 0%, #66BB33 100%);
+}
+
+.pin-submit-btn:active {
+    transform: scale(0.95);
+}
+
+.pin-error {
+    font-size: 10px;
+    color: #FFD700;
+    margin-top: 4px;
+    animation: shake 0.4s ease;
+}
+
+@keyframes shake {
+
+    0%,
+    100% {
+        transform: translateX(0);
+    }
+
+    25% {
+        transform: translateX(-6px);
+    }
+
+    50% {
+        transform: translateX(6px);
+    }
+
+    75% {
+        transform: translateX(-4px);
+    }
+}
+
+/* Hint */
+.hint-button {
+    padding: 6px 14px;
+    border-radius: 4px;
+    background: rgba(255, 255, 255, 0.1);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    color: rgba(255, 255, 255, 0.7);
+    font-size: 11px;
+    transition: all 0.2s;
+}
+
+.hint-button:hover {
+    background: rgba(255, 255, 255, 0.2);
+    color: white;
+}
+
+.pin-hint-display {
+    padding: 8px 16px;
+    background: rgba(255, 165, 0, 0.2);
+    border: 1px solid rgba(255, 165, 0, 0.4);
+    border-radius: 6px;
+    font-size: 18px;
+    font-weight: bold;
+    letter-spacing: 10px;
+    color: #FFD700;
+    text-shadow: 0 0 8px rgba(255, 215, 0, 0.6);
+    animation: fadeIn 0.3s ease;
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(-4px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* Bottom bar */
+.login-bottom-bar {
+    width: 100%;
+    padding: 8px 24px;
+    background: linear-gradient(180deg, #003D8C 0%, #002860 100%);
+    border-top: 1px solid rgba(255, 255, 255, 0.1);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.login-bottom-left {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    cursor: pointer;
+    padding: 4px 8px;
+    border-radius: 4px;
+    transition: background 0.2s;
+}
+
+.login-bottom-left:hover {
+    background: rgba(255, 255, 255, 0.1);
+}
+
+.turn-off-icon {
+    font-size: 16px;
+    color: #FF6347;
+}
+
+.login-bottom-right {
+    font-size: 9px;
+    color: rgba(255, 255, 255, 0.5);
+    text-align: right;
+}
+
+/* ============ BSOD SCREEN ============ */
+#bsod-screen {
+    background: #0000AA;
+    color: #AAAAAA;
+    z-index: 2000;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 40px;
+}
+
+.bsod-content {
+    font-family: 'Lucida Console', 'Consolas', 'Courier New', monospace;
+    font-size: 14px;
+    line-height: 1.6;
+    max-width: 720px;
+    color: #FFFFFF;
+}
+
+.bsod-title {
+    background: #AAAAAA;
+    color: #0000AA;
+    padding: 2px 8px;
+    display: inline;
+    font-weight: bold;
+}
+
+.bsod-error {
+    font-weight: bold;
+    color: #FFFFFF;
+    font-size: 16px;
+}
+
+.bsod-blink {
+    animation: bsodBlink 1s step-end infinite;
+    margin-top: 20px;
+}
+
+@keyframes bsodBlink {
+
+    0%,
+    100% {
+        opacity: 1;
+    }
+
+    50% {
+        opacity: 0;
+    }
+}
