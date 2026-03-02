@@ -1,0 +1,249 @@
+/* ============ RESPONSIVE ============ */
+
+/* Tablet */
+@media (max-width: 1024px) {
+    .login-center {
+        flex-direction: column;
+        gap: 20px;
+    }
+
+    .login-divider {
+        width: 200px;
+        height: 2px;
+    }
+
+    #start-menu {
+        width: 340px;
+    }
+
+    .start-menu-right {
+        width: 140px;
+    }
+
+    .desktop-icon {
+        width: 68px;
+    }
+
+    .icon-img,
+    .icon-img svg {
+        width: 40px;
+        height: 40px;
+    }
+}
+
+/* Mobile */
+@media (max-width: 768px) {
+
+    /* Login adjustments */
+    .login-center {
+        padding: 20px;
+    }
+
+    .login-branding {
+        transform: scale(0.8);
+    }
+
+    .login-divider {
+        display: none;
+    }
+
+    /* Desktop icons */
+    #desktop-icons {
+        gap: 4px;
+        top: 8px;
+        left: 8px;
+    }
+
+    .desktop-icon {
+        width: 60px;
+        padding: 4px 2px;
+    }
+
+    .icon-img,
+    .icon-img svg {
+        width: 36px;
+        height: 36px;
+    }
+
+    .icon-label {
+        font-size: 9px;
+    }
+
+    /* Windows go full screen on mobile */
+    .xp-window {
+        position: fixed !important;
+        top: 0 !important;
+        left: 0 !important;
+        width: 100% !important;
+        height: calc(100vh - 40px) !important;
+        border-radius: 0;
+        min-width: unset;
+        min-height: unset;
+    }
+
+    .window-resize-handle {
+        display: none;
+    }
+
+    .window-btn-maximize {
+        display: none;
+    }
+
+    /* Taskbar */
+    #taskbar {
+        height: 36px;
+    }
+
+    #start-button {
+        height: 34px;
+        padding: 0 8px 0 4px;
+        font-size: 11px;
+    }
+
+    .start-logo svg {
+        width: 16px;
+        height: 16px;
+    }
+
+    .taskbar-item {
+        min-width: 40px;
+        max-width: 80px;
+        padding: 0 4px;
+        font-size: 0;
+    }
+
+    .taskbar-item-icon {
+        width: 14px;
+        height: 14px;
+    }
+
+    #system-tray {
+        padding: 0 4px;
+        gap: 2px;
+    }
+
+    #clock {
+        font-size: 10px;
+        min-width: 44px;
+    }
+
+    /* Start menu */
+    #start-menu {
+        width: calc(100% - 10px);
+        left: 5px;
+        bottom: 36px;
+    }
+
+    .start-menu-body {
+        flex-direction: column;
+        min-height: auto;
+    }
+
+    .start-menu-right {
+        width: 100%;
+        border-top: 1px solid #A8C1E6;
+    }
+
+    /* My computer sidebar */
+    .my-computer-sidebar {
+        flex-direction: column;
+    }
+
+    .mc-sidebar {
+        width: 100%;
+        max-height: 80px;
+        overflow-x: auto;
+        display: flex;
+        gap: 8px;
+        align-items: center;
+        flex-wrap: wrap;
+    }
+
+    .mc-sidebar h3 {
+        margin-bottom: 0;
+        border-bottom: none;
+        white-space: nowrap;
+    }
+
+    /* Terminal */
+    .terminal-container {
+        font-size: 11px;
+    }
+
+    /* Minesweeper */
+    .ms-cell {
+        width: 24px;
+        height: 24px;
+        font-size: 12px;
+    }
+
+    /* Clippy */
+    #clippy-container {
+        right: 10px;
+        bottom: 50px;
+    }
+
+    .clippy-bubble {
+        max-width: 180px;
+        font-size: 10px;
+    }
+
+    .clippy-character {
+        transform: scale(0.8);
+    }
+
+    /* BSOD */
+    .bsod-content {
+        font-size: 11px;
+        padding: 20px;
+    }
+}
+
+/* Small mobile */
+@media (max-width: 480px) {
+    .login-title-windows {
+        font-size: 24px;
+    }
+
+    .login-title-xp {
+        font-size: 32px;
+    }
+
+    .pin-digit {
+        width: 24px;
+        height: 24px;
+        font-size: 14px;
+    }
+
+    #desktop-icons {
+        gap: 2px;
+    }
+
+    .desktop-icon {
+        width: 54px;
+    }
+
+    .icon-img,
+    .icon-img svg {
+        width: 32px;
+        height: 32px;
+    }
+
+    .projects-grid {
+        grid-template-columns: repeat(auto-fill, minmax(80px, 1fr));
+        gap: 8px;
+        padding: 8px;
+    }
+}
+
+/* Touch device adjustments */
+@media (hover: none) {
+    .desktop-icon {
+        -webkit-tap-highlight-color: transparent;
+    }
+
+    /* Single tap to open on touch */
+    .desktop-icon:active {
+        background: rgba(80, 140, 220, 0.5);
+    }
+}
