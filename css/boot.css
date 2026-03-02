@@ -1,0 +1,157 @@
+/* ============ BOOT SCREEN ============ */
+#boot-screen {
+    background: #000;
+    z-index: 1500;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+}
+
+.boot-content {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 40px;
+}
+
+.boot-logo {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 16px;
+}
+
+.boot-flag-container {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 4px;
+    width: 64px;
+    height: 64px;
+    transform: perspective(200px) rotateY(-8deg);
+    animation: bootFlagWave 2s ease-in-out infinite;
+}
+
+@keyframes bootFlagWave {
+
+    0%,
+    100% {
+        transform: perspective(200px) rotateY(-8deg);
+    }
+
+    50% {
+        transform: perspective(200px) rotateY(8deg);
+    }
+}
+
+.boot-flag {
+    border-radius: 3px;
+}
+
+.boot-flag-red {
+    background: #FF3333;
+    box-shadow: 0 0 10px rgba(255, 0, 0, 0.4);
+}
+
+.boot-flag-green {
+    background: #33CC33;
+    box-shadow: 0 0 10px rgba(0, 200, 0, 0.4);
+}
+
+.boot-flag-blue {
+    background: #3366FF;
+    box-shadow: 0 0 10px rgba(0, 80, 255, 0.4);
+}
+
+.boot-flag-yellow {
+    background: #FFCC00;
+    box-shadow: 0 0 10px rgba(255, 200, 0, 0.4);
+}
+
+.boot-text {
+    text-align: center;
+    color: white;
+}
+
+.boot-windows {
+    display: block;
+    font-size: 10px;
+    letter-spacing: 6px;
+    text-transform: uppercase;
+    color: rgba(255, 255, 255, 0.6);
+    margin-bottom: 4px;
+}
+
+.boot-windows-large {
+    font-size: 32px;
+    font-weight: bold;
+    font-style: italic;
+    letter-spacing: -1px;
+    text-shadow: 0 0 20px rgba(100, 150, 255, 0.4);
+}
+
+.boot-xp {
+    font-size: 44px;
+    font-weight: bold;
+    font-style: italic;
+    color: #FFA500;
+    text-shadow: 0 0 20px rgba(255, 165, 0, 0.5);
+    margin-left: 6px;
+}
+
+/* Progress bar */
+.boot-progress-container {
+    width: 220px;
+}
+
+.boot-progress-track {
+    width: 100%;
+    height: 20px;
+    background: #111;
+    border: 1px solid #333;
+    border-radius: 3px;
+    overflow: hidden;
+    position: relative;
+}
+
+.boot-progress-blocks {
+    display: flex;
+    gap: 3px;
+    padding: 3px;
+    position: absolute;
+    left: -60px;
+    animation: bootProgressSlide 1.5s linear infinite;
+}
+
+@keyframes bootProgressSlide {
+    0% {
+        left: -60px;
+    }
+
+    100% {
+        left: 220px;
+    }
+}
+
+.boot-block {
+    width: 14px;
+    height: 12px;
+    background: linear-gradient(180deg, #5599FF 0%, #2266CC 100%);
+    border-radius: 1px;
+    box-shadow: 0 0 4px rgba(50, 100, 255, 0.5);
+}
+
+/* Boot fade out */
+#boot-screen.fade-out {
+    animation: bootFadeOut 0.8s ease forwards;
+}
+
+@keyframes bootFadeOut {
+    0% {
+        opacity: 1;
+    }
+
+    100% {
+        opacity: 0;
+    }
+}
