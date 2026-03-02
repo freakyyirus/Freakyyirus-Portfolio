@@ -1,0 +1,355 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Developer Portfolio | Windows XP</title>
+  <meta name="description" content="Interactive Windows XP-themed developer portfolio showcasing projects, skills, and experience through a nostalgic desktop interface.">
+  <link rel="stylesheet" href="css/reset.css">
+  <link rel="stylesheet" href="css/login.css">
+  <link rel="stylesheet" href="css/boot.css">
+  <link rel="stylesheet" href="css/desktop.css">
+  <link rel="stylesheet" href="css/windows.css">
+  <link rel="stylesheet" href="css/start-menu.css">
+  <link rel="stylesheet" href="css/apps.css">
+  <link rel="stylesheet" href="css/minesweeper.css">
+  <link rel="stylesheet" href="css/clippy.css">
+  <link rel="stylesheet" href="css/crt.css">
+  <link rel="stylesheet" href="css/responsive.css">
+</head>
+<body>
+
+  <!-- ============ LOGIN SCREEN ============ -->
+  <div id="login-screen" class="screen active">
+    <div class="login-top-bar">
+      <span class="login-top-text">To begin, click your user name</span>
+    </div>
+    <div class="login-center">
+      <div class="login-branding">
+        <div class="login-windows-logo">
+          <span class="win-flag flag-red"></span>
+          <span class="win-flag flag-green"></span>
+          <span class="win-flag flag-blue"></span>
+          <span class="win-flag flag-yellow"></span>
+        </div>
+        <div class="login-title">
+          <span class="login-title-windows">Windows</span><span class="login-title-xp">XP</span>
+        </div>
+      </div>
+      <div class="login-divider"></div>
+      <div class="login-user-panel">
+        <div class="login-user-tile" id="login-user-tile">
+          <div class="login-avatar">
+            <svg viewBox="0 0 64 64" width="64" height="64">
+              <circle cx="32" cy="24" r="14" fill="#4a86c8"/>
+              <ellipse cx="32" cy="56" rx="22" ry="16" fill="#4a86c8"/>
+            </svg>
+          </div>
+          <div class="login-user-info">
+            <h2 class="login-username">Developer</h2>
+            <div class="login-pin-area" id="login-pin-area">
+              <p class="pin-prompt">Type your password:</p>
+              <div class="pin-row">
+                <div class="pin-inputs">
+                  <input type="password" maxlength="1" class="pin-digit" data-index="0" autocomplete="off" inputmode="numeric">
+                  <input type="password" maxlength="1" class="pin-digit" data-index="1" autocomplete="off" inputmode="numeric">
+                  <input type="password" maxlength="1" class="pin-digit" data-index="2" autocomplete="off" inputmode="numeric">
+                  <input type="password" maxlength="1" class="pin-digit" data-index="3" autocomplete="off" inputmode="numeric">
+                </div>
+                <button id="pin-submit" class="pin-submit-btn" title="Submit">&#10132;</button>
+              </div>
+              <p class="pin-error hidden" id="pin-error">Incorrect PIN. <span id="attempts-left">2</span> attempts remaining.</p>
+            </div>
+          </div>
+        </div>
+        <button id="pin-hint" class="hint-button" title="Show PIN">
+          <span class="hint-icon">💡</span> Hint
+        </button>
+        <div id="pin-hint-display" class="pin-hint-display hidden"></div>
+      </div>
+    </div>
+    <div class="login-bottom-bar">
+      <div class="login-bottom-left">
+        <span class="turn-off-icon">⏻</span> Turn off computer
+      </div>
+      <div class="login-bottom-right">
+        After you log on, you can add or change accounts.<br>Just go to Control Panel and click User Accounts.
+      </div>
+    </div>
+  </div>
+
+  <!-- ============ BSOD SCREEN ============ -->
+  <div id="bsod-screen" class="screen hidden">
+    <div class="bsod-content">
+      <p class="bsod-title">A problem has been detected and Windows has been shut down to prevent damage
+to your computer.</p>
+      <br>
+      <p class="bsod-error">TOO_MANY_FAILED_LOGINS</p>
+      <br>
+      <p>If this is the first time you've seen this Stop error screen,
+restart your computer. If this screen appears again, follow
+these steps:</p>
+      <br>
+      <p>Check to make sure any new hardware or software is properly installed.
+If this is a new installation, ask your hardware or software manufacturer
+for any Windows updates you might need.</p>
+      <br>
+      <p>If problems continue, disable or remove any newly installed hardware
+or software. Disable BIOS memory options such as caching or shadowing.
+If you need to use Safe Mode to remove or disable components, restart
+your computer, press F8 to select Advanced Startup Options, and then
+select Safe Mode.</p>
+      <br>
+      <p>Technical information:</p>
+      <br>
+      <p>*** STOP: 0x000000D1 (0x0000004F, 0x00000002, 0x00000000, 0xF86B5A89)</p>
+      <br><br>
+      <p class="bsod-blink">Press any key to restart_</p>
+    </div>
+  </div>
+
+  <!-- ============ BOOT SCREEN ============ -->
+  <div id="boot-screen" class="screen hidden">
+    <div class="boot-content">
+      <div class="boot-logo">
+        <div class="boot-flag-container">
+          <div class="boot-flag boot-flag-red"></div>
+          <div class="boot-flag boot-flag-green"></div>
+          <div class="boot-flag boot-flag-blue"></div>
+          <div class="boot-flag boot-flag-yellow"></div>
+        </div>
+        <div class="boot-text">
+          <span class="boot-windows">Microsoft</span>
+          <span class="boot-windows-large">Windows</span><span class="boot-xp">XP</span>
+        </div>
+      </div>
+      <div class="boot-progress-container">
+        <div class="boot-progress-track">
+          <div class="boot-progress-blocks" id="boot-progress-blocks">
+            <div class="boot-block"></div>
+            <div class="boot-block"></div>
+            <div class="boot-block"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ============ DESKTOP ============ -->
+  <div id="desktop" class="screen hidden">
+    <div id="desktop-icons">
+      <div class="desktop-icon" data-app="my-computer">
+        <div class="icon-img">
+          <svg viewBox="0 0 48 48" width="48" height="48">
+            <rect x="6" y="4" width="36" height="26" rx="2" fill="#1a3a5c" stroke="#7a8a9a" stroke-width="1.5"/>
+            <rect x="9" y="7" width="30" height="20" fill="#3a7bd5"/>
+            <rect x="18" y="30" width="12" height="4" fill="#a0a0a0"/>
+            <rect x="12" y="34" width="24" height="3" rx="1.5" fill="#808080"/>
+          </svg>
+        </div>
+        <span class="icon-label">My Computer</span>
+      </div>
+
+      <div class="desktop-icon" data-app="about-me">
+        <div class="icon-img">
+          <svg viewBox="0 0 48 48" width="48" height="48">
+            <rect x="8" y="2" width="32" height="40" rx="2" fill="#f0e68c" stroke="#c0a000" stroke-width="1.5"/>
+            <rect x="12" y="8" width="24" height="2" fill="#c0a000" opacity="0.5"/>
+            <rect x="12" y="13" width="24" height="2" fill="#c0a000" opacity="0.5"/>
+            <rect x="12" y="18" width="18" height="2" fill="#c0a000" opacity="0.5"/>
+            <rect x="12" y="23" width="24" height="2" fill="#c0a000" opacity="0.5"/>
+            <rect x="12" y="28" width="20" height="2" fill="#c0a000" opacity="0.5"/>
+            <circle cx="36" cy="44" r="3" fill="#4a86c8"/>
+          </svg>
+        </div>
+        <span class="icon-label">About Me</span>
+      </div>
+
+      <div class="desktop-icon" data-app="projects">
+        <div class="icon-img">
+          <svg viewBox="0 0 48 48" width="48" height="48">
+            <path d="M4 14 L4 40 Q4 42 6 42 L42 42 Q44 42 44 40 L44 14 Z" fill="#f2d06b" stroke="#c4960a" stroke-width="1"/>
+            <path d="M4 14 L4 10 Q4 8 6 8 L18 8 Q20 8 21 10 L23 14 Z" fill="#e6c44e" stroke="#c4960a" stroke-width="1"/>
+          </svg>
+        </div>
+        <span class="icon-label">Projects</span>
+      </div>
+
+      <div class="desktop-icon" data-app="terminal">
+        <div class="icon-img">
+          <svg viewBox="0 0 48 48" width="48" height="48">
+            <rect x="4" y="6" width="40" height="36" rx="2" fill="#0C0C0C" stroke="#808080" stroke-width="1.5"/>
+            <rect x="4" y="6" width="40" height="8" rx="2" fill="#000080"/>
+            <text x="8" y="12" fill="white" font-size="5" font-family="monospace">C:\</text>
+            <text x="8" y="24" fill="#c0c0c0" font-size="6" font-family="monospace">C:\&gt;_</text>
+          </svg>
+        </div>
+        <span class="icon-label">CMD Terminal</span>
+      </div>
+
+      <div class="desktop-icon" data-app="minesweeper">
+        <div class="icon-img">
+          <svg viewBox="0 0 48 48" width="48" height="48">
+            <rect x="4" y="4" width="40" height="40" rx="2" fill="#c0c0c0" stroke="#808080" stroke-width="1"/>
+            <circle cx="16" cy="16" r="5" fill="#ff0000"/>
+            <text x="28" y="20" fill="#0000ff" font-size="14" font-weight="bold" font-family="sans-serif">1</text>
+            <text x="12" y="36" fill="#008000" font-size="14" font-weight="bold" font-family="sans-serif">2</text>
+            <text x="28" y="36" fill="#ff0000" font-size="14" font-weight="bold" font-family="sans-serif">💣</text>
+          </svg>
+        </div>
+        <span class="icon-label">Minesweeper</span>
+      </div>
+
+      <div class="desktop-icon" data-app="internet-explorer">
+        <div class="icon-img">
+          <svg viewBox="0 0 48 48" width="48" height="48">
+            <circle cx="24" cy="24" r="18" fill="#0078d7"/>
+            <ellipse cx="24" cy="24" rx="18" ry="8" fill="none" stroke="white" stroke-width="3" transform="rotate(-30 24 24)"/>
+            <text x="16" y="32" fill="white" font-size="24" font-weight="bold" font-family="serif" font-style="italic">e</text>
+          </svg>
+        </div>
+        <span class="icon-label">Internet Explorer</span>
+      </div>
+
+      <div class="desktop-icon" data-app="recycle-bin" id="recycle-bin-icon">
+        <div class="icon-img">
+          <svg viewBox="0 0 48 48" width="48" height="48">
+            <rect x="12" y="12" width="24" height="28" rx="2" fill="#a0a8b0" stroke="#606870" stroke-width="1.5"/>
+            <rect x="10" y="8" width="28" height="5" rx="2" fill="#b0b8c0" stroke="#606870" stroke-width="1"/>
+            <rect x="20" y="5" width="8" height="4" rx="1" fill="#b0b8c0" stroke="#606870" stroke-width="1"/>
+            <line x1="18" y1="17" x2="18" y2="36" stroke="#606870" stroke-width="1.5"/>
+            <line x1="24" y1="17" x2="24" y2="36" stroke="#606870" stroke-width="1.5"/>
+            <line x1="30" y1="17" x2="30" y2="36" stroke="#606870" stroke-width="1.5"/>
+          </svg>
+        </div>
+        <span class="icon-label">Recycle Bin</span>
+      </div>
+    </div>
+
+    <!-- Window container - all app windows go here -->
+    <div id="windows-container"></div>
+  </div>
+
+  <!-- ============ TASKBAR ============ -->
+  <div id="taskbar" class="hidden">
+    <button id="start-button">
+      <span class="start-logo">
+        <svg viewBox="0 0 16 16" width="16" height="16">
+          <rect x="1" y="1" width="6" height="6" fill="#FF0000" rx="1"/>
+          <rect x="9" y="1" width="6" height="6" fill="#00B300" rx="1"/>
+          <rect x="1" y="9" width="6" height="6" fill="#0052CC" rx="1"/>
+          <rect x="9" y="9" width="6" height="6" fill="#FFB700" rx="1"/>
+        </svg>
+      </span>
+      <span class="start-text">start</span>
+    </button>
+    <div id="quick-launch">
+      <div class="ql-separator"></div>
+    </div>
+    <div id="taskbar-windows"></div>
+    <div id="system-tray">
+      <button class="tray-btn" id="sound-toggle" title="Toggle Sound">🔊</button>
+      <button class="tray-btn" id="crt-toggle" title="Toggle CRT Effect">📺</button>
+      <span id="clock"></span>
+    </div>
+  </div>
+
+  <!-- ============ START MENU ============ -->
+  <div id="start-menu" class="hidden">
+    <div class="start-menu-header">
+      <div class="start-menu-avatar">
+        <svg viewBox="0 0 40 40" width="40" height="40">
+          <circle cx="20" cy="15" r="9" fill="#fff"/>
+          <ellipse cx="20" cy="36" rx="14" ry="10" fill="#fff"/>
+        </svg>
+      </div>
+      <span class="start-menu-username">Developer</span>
+    </div>
+    <div class="start-menu-body">
+      <div class="start-menu-left">
+        <div class="start-menu-item" data-app="internet-explorer">
+          <span class="smi-icon">🌐</span> Internet Explorer
+        </div>
+        <div class="start-menu-item" data-app="terminal">
+          <span class="smi-icon">⌨️</span> Command Prompt
+        </div>
+        <div class="start-menu-separator"></div>
+        <div class="start-menu-item" data-app="my-computer">
+          <span class="smi-icon">🖥️</span> My Computer
+        </div>
+        <div class="start-menu-item" data-app="projects">
+          <span class="smi-icon">📁</span> My Projects
+        </div>
+        <div class="start-menu-item" data-app="about-me">
+          <span class="smi-icon">📋</span> About Me
+        </div>
+        <div class="start-menu-item" data-app="minesweeper">
+          <span class="smi-icon">💣</span> Minesweeper
+        </div>
+        <div class="start-menu-item" data-app="recycle-bin">
+          <span class="smi-icon">🗑️</span> Recycle Bin
+        </div>
+      </div>
+      <div class="start-menu-right">
+        <div class="start-menu-item" data-app="my-computer">
+          <span class="smi-icon">🖥️</span> My Computer
+        </div>
+        <div class="start-menu-item" data-app="projects">
+          <span class="smi-icon">📂</span> My Documents
+        </div>
+        <div class="start-menu-separator"></div>
+        <div class="start-menu-item" data-app="about-me">
+          <span class="smi-icon">⚙️</span> Control Panel
+        </div>
+        <div class="start-menu-item" data-app="terminal">
+          <span class="smi-icon">🖨️</span> Command Prompt
+        </div>
+        <div class="start-menu-separator"></div>
+        <div class="start-menu-item" data-link="https://github.com">
+          <span class="smi-icon">🔗</span> GitHub
+        </div>
+        <div class="start-menu-item" data-link="https://linkedin.com">
+          <span class="smi-icon">🔗</span> LinkedIn
+        </div>
+      </div>
+    </div>
+    <div class="start-menu-footer">
+      <button id="start-menu-logoff" class="start-footer-btn">
+        <span>🔒</span> Log Off
+      </button>
+      <button id="start-menu-shutdown" class="start-footer-btn">
+        <span>⏻</span> Turn Off Computer
+      </button>
+    </div>
+  </div>
+
+  <!-- ============ CLIPPY ============ -->
+  <div id="clippy-container" class="hidden">
+    <div class="clippy-character">
+      <div class="clippy-body">
+        <div class="clippy-eye left-eye"><div class="clippy-pupil"></div></div>
+        <div class="clippy-eye right-eye"><div class="clippy-pupil"></div></div>
+        <div class="clippy-brow left-brow"></div>
+        <div class="clippy-brow right-brow"></div>
+      </div>
+    </div>
+    <div class="clippy-bubble">
+      <p id="clippy-text"></p>
+      <button id="clippy-dismiss" class="clippy-dismiss">✕</button>
+    </div>
+  </div>
+
+  <!-- ============ CRT OVERLAY ============ -->
+  <div id="crt-overlay" class="crt-active"></div>
+
+  <!-- ============ SCRIPTS ============ -->
+  <script src="js/sounds.js"></script>
+  <script src="js/window-manager.js"></script>
+  <script src="js/taskbar.js"></script>
+  <script src="js/terminal.js"></script>
+  <script src="js/minesweeper.js"></script>
+  <script src="js/clippy.js"></script>
+  <script src="js/recycle-bin.js"></script>
+  <script src="js/main.js"></script>
+</body>
+</html>
