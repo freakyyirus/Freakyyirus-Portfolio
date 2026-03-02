@@ -1,10 +1,12 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Developer Portfolio | Windows XP</title>
-  <meta name="description" content="Interactive Windows XP-themed developer portfolio showcasing projects, skills, and experience through a nostalgic desktop interface.">
+  <meta name="description"
+    content="Interactive Windows XP-themed developer portfolio showcasing projects, skills, and experience through a nostalgic desktop interface.">
   <link rel="stylesheet" href="css/reset.css">
   <link rel="stylesheet" href="css/login.css">
   <link rel="stylesheet" href="css/boot.css">
@@ -17,6 +19,7 @@
   <link rel="stylesheet" href="css/crt.css">
   <link rel="stylesheet" href="css/responsive.css">
 </head>
+
 <body>
 
   <!-- ============ LOGIN SCREEN ============ -->
@@ -41,8 +44,8 @@
         <div class="login-user-tile" id="login-user-tile">
           <div class="login-avatar">
             <svg viewBox="0 0 64 64" width="64" height="64">
-              <circle cx="32" cy="24" r="14" fill="#4a86c8"/>
-              <ellipse cx="32" cy="56" rx="22" ry="16" fill="#4a86c8"/>
+              <circle cx="32" cy="24" r="14" fill="#4a86c8" />
+              <ellipse cx="32" cy="56" rx="22" ry="16" fill="#4a86c8" />
             </svg>
           </div>
           <div class="login-user-info">
@@ -51,20 +54,30 @@
               <p class="pin-prompt">Type your password:</p>
               <div class="pin-row">
                 <div class="pin-inputs">
-                  <input type="password" maxlength="1" class="pin-digit" data-index="0" autocomplete="off" inputmode="numeric">
-                  <input type="password" maxlength="1" class="pin-digit" data-index="1" autocomplete="off" inputmode="numeric">
-                  <input type="password" maxlength="1" class="pin-digit" data-index="2" autocomplete="off" inputmode="numeric">
-                  <input type="password" maxlength="1" class="pin-digit" data-index="3" autocomplete="off" inputmode="numeric">
+                  <input type="password" maxlength="1" class="pin-digit" data-index="0" autocomplete="off"
+                    inputmode="numeric">
+                  <input type="password" maxlength="1" class="pin-digit" data-index="1" autocomplete="off"
+                    inputmode="numeric">
+                  <input type="password" maxlength="1" class="pin-digit" data-index="2" autocomplete="off"
+                    inputmode="numeric">
+                  <input type="password" maxlength="1" class="pin-digit" data-index="3" autocomplete="off"
+                    inputmode="numeric">
                 </div>
                 <button id="pin-submit" class="pin-submit-btn" title="Submit">&#10132;</button>
               </div>
-              <p class="pin-error hidden" id="pin-error">Incorrect PIN. <span id="attempts-left">2</span> attempts remaining.</p>
+              <p class="pin-error hidden" id="pin-error">Incorrect PIN. <span id="attempts-left">2</span> attempts
+                remaining.</p>
             </div>
           </div>
         </div>
-        <button id="pin-hint" class="hint-button" title="Show PIN">
-          <span class="hint-icon">💡</span> Hint
-        </button>
+        <div class="login-action-buttons">
+          <button id="pin-hint" class="hint-button" title="Show PIN">
+            <span class="hint-icon">💡</span> Hint
+          </button>
+          <button id="skip-login" class="hint-button skip-btn" title="Skip login">
+            <span class="hint-icon">⏭️</span> Skip Login
+          </button>
+        </div>
         <div id="pin-hint-display" class="pin-hint-display hidden"></div>
       </div>
     </div>
@@ -82,23 +95,23 @@
   <div id="bsod-screen" class="screen hidden">
     <div class="bsod-content">
       <p class="bsod-title">A problem has been detected and Windows has been shut down to prevent damage
-to your computer.</p>
+        to your computer.</p>
       <br>
       <p class="bsod-error">TOO_MANY_FAILED_LOGINS</p>
       <br>
       <p>If this is the first time you've seen this Stop error screen,
-restart your computer. If this screen appears again, follow
-these steps:</p>
+        restart your computer. If this screen appears again, follow
+        these steps:</p>
       <br>
       <p>Check to make sure any new hardware or software is properly installed.
-If this is a new installation, ask your hardware or software manufacturer
-for any Windows updates you might need.</p>
+        If this is a new installation, ask your hardware or software manufacturer
+        for any Windows updates you might need.</p>
       <br>
       <p>If problems continue, disable or remove any newly installed hardware
-or software. Disable BIOS memory options such as caching or shadowing.
-If you need to use Safe Mode to remove or disable components, restart
-your computer, press F8 to select Advanced Startup Options, and then
-select Safe Mode.</p>
+        or software. Disable BIOS memory options such as caching or shadowing.
+        If you need to use Safe Mode to remove or disable components, restart
+        your computer, press F8 to select Advanced Startup Options, and then
+        select Safe Mode.</p>
       <br>
       <p>Technical information:</p>
       <br>
@@ -141,10 +154,10 @@ select Safe Mode.</p>
       <div class="desktop-icon" data-app="my-computer">
         <div class="icon-img">
           <svg viewBox="0 0 48 48" width="48" height="48">
-            <rect x="6" y="4" width="36" height="26" rx="2" fill="#1a3a5c" stroke="#7a8a9a" stroke-width="1.5"/>
-            <rect x="9" y="7" width="30" height="20" fill="#3a7bd5"/>
-            <rect x="18" y="30" width="12" height="4" fill="#a0a0a0"/>
-            <rect x="12" y="34" width="24" height="3" rx="1.5" fill="#808080"/>
+            <rect x="6" y="4" width="36" height="26" rx="2" fill="#1a3a5c" stroke="#7a8a9a" stroke-width="1.5" />
+            <rect x="9" y="7" width="30" height="20" fill="#3a7bd5" />
+            <rect x="18" y="30" width="12" height="4" fill="#a0a0a0" />
+            <rect x="12" y="34" width="24" height="3" rx="1.5" fill="#808080" />
           </svg>
         </div>
         <span class="icon-label">My Computer</span>
@@ -153,13 +166,13 @@ select Safe Mode.</p>
       <div class="desktop-icon" data-app="about-me">
         <div class="icon-img">
           <svg viewBox="0 0 48 48" width="48" height="48">
-            <rect x="8" y="2" width="32" height="40" rx="2" fill="#f0e68c" stroke="#c0a000" stroke-width="1.5"/>
-            <rect x="12" y="8" width="24" height="2" fill="#c0a000" opacity="0.5"/>
-            <rect x="12" y="13" width="24" height="2" fill="#c0a000" opacity="0.5"/>
-            <rect x="12" y="18" width="18" height="2" fill="#c0a000" opacity="0.5"/>
-            <rect x="12" y="23" width="24" height="2" fill="#c0a000" opacity="0.5"/>
-            <rect x="12" y="28" width="20" height="2" fill="#c0a000" opacity="0.5"/>
-            <circle cx="36" cy="44" r="3" fill="#4a86c8"/>
+            <rect x="8" y="2" width="32" height="40" rx="2" fill="#f0e68c" stroke="#c0a000" stroke-width="1.5" />
+            <rect x="12" y="8" width="24" height="2" fill="#c0a000" opacity="0.5" />
+            <rect x="12" y="13" width="24" height="2" fill="#c0a000" opacity="0.5" />
+            <rect x="12" y="18" width="18" height="2" fill="#c0a000" opacity="0.5" />
+            <rect x="12" y="23" width="24" height="2" fill="#c0a000" opacity="0.5" />
+            <rect x="12" y="28" width="20" height="2" fill="#c0a000" opacity="0.5" />
+            <circle cx="36" cy="44" r="3" fill="#4a86c8" />
           </svg>
         </div>
         <span class="icon-label">About Me</span>
@@ -168,8 +181,10 @@ select Safe Mode.</p>
       <div class="desktop-icon" data-app="projects">
         <div class="icon-img">
           <svg viewBox="0 0 48 48" width="48" height="48">
-            <path d="M4 14 L4 40 Q4 42 6 42 L42 42 Q44 42 44 40 L44 14 Z" fill="#f2d06b" stroke="#c4960a" stroke-width="1"/>
-            <path d="M4 14 L4 10 Q4 8 6 8 L18 8 Q20 8 21 10 L23 14 Z" fill="#e6c44e" stroke="#c4960a" stroke-width="1"/>
+            <path d="M4 14 L4 40 Q4 42 6 42 L42 42 Q44 42 44 40 L44 14 Z" fill="#f2d06b" stroke="#c4960a"
+              stroke-width="1" />
+            <path d="M4 14 L4 10 Q4 8 6 8 L18 8 Q20 8 21 10 L23 14 Z" fill="#e6c44e" stroke="#c4960a"
+              stroke-width="1" />
           </svg>
         </div>
         <span class="icon-label">Projects</span>
@@ -178,8 +193,8 @@ select Safe Mode.</p>
       <div class="desktop-icon" data-app="terminal">
         <div class="icon-img">
           <svg viewBox="0 0 48 48" width="48" height="48">
-            <rect x="4" y="6" width="40" height="36" rx="2" fill="#0C0C0C" stroke="#808080" stroke-width="1.5"/>
-            <rect x="4" y="6" width="40" height="8" rx="2" fill="#000080"/>
+            <rect x="4" y="6" width="40" height="36" rx="2" fill="#0C0C0C" stroke="#808080" stroke-width="1.5" />
+            <rect x="4" y="6" width="40" height="8" rx="2" fill="#000080" />
             <text x="8" y="12" fill="white" font-size="5" font-family="monospace">C:\</text>
             <text x="8" y="24" fill="#c0c0c0" font-size="6" font-family="monospace">C:\&gt;_</text>
           </svg>
@@ -190,8 +205,8 @@ select Safe Mode.</p>
       <div class="desktop-icon" data-app="minesweeper">
         <div class="icon-img">
           <svg viewBox="0 0 48 48" width="48" height="48">
-            <rect x="4" y="4" width="40" height="40" rx="2" fill="#c0c0c0" stroke="#808080" stroke-width="1"/>
-            <circle cx="16" cy="16" r="5" fill="#ff0000"/>
+            <rect x="4" y="4" width="40" height="40" rx="2" fill="#c0c0c0" stroke="#808080" stroke-width="1" />
+            <circle cx="16" cy="16" r="5" fill="#ff0000" />
             <text x="28" y="20" fill="#0000ff" font-size="14" font-weight="bold" font-family="sans-serif">1</text>
             <text x="12" y="36" fill="#008000" font-size="14" font-weight="bold" font-family="sans-serif">2</text>
             <text x="28" y="36" fill="#ff0000" font-size="14" font-weight="bold" font-family="sans-serif">💣</text>
@@ -203,23 +218,68 @@ select Safe Mode.</p>
       <div class="desktop-icon" data-app="internet-explorer">
         <div class="icon-img">
           <svg viewBox="0 0 48 48" width="48" height="48">
-            <circle cx="24" cy="24" r="18" fill="#0078d7"/>
-            <ellipse cx="24" cy="24" rx="18" ry="8" fill="none" stroke="white" stroke-width="3" transform="rotate(-30 24 24)"/>
-            <text x="16" y="32" fill="white" font-size="24" font-weight="bold" font-family="serif" font-style="italic">e</text>
+            <circle cx="24" cy="24" r="18" fill="#0078d7" />
+            <ellipse cx="24" cy="24" rx="18" ry="8" fill="none" stroke="white" stroke-width="3"
+              transform="rotate(-30 24 24)" />
+            <text x="16" y="32" fill="white" font-size="24" font-weight="bold" font-family="serif"
+              font-style="italic">e</text>
           </svg>
         </div>
         <span class="icon-label">Internet Explorer</span>
       </div>
 
+      <div class="desktop-icon" data-app="resume">
+        <div class="icon-img">
+          <svg viewBox="0 0 48 48" width="48" height="48">
+            <rect x="10" y="2" width="28" height="38" rx="1" fill="#FFFFFF" stroke="#CC0000" stroke-width="1.5" />
+            <rect x="10" y="2" width="28" height="8" fill="#CC0000" rx="1" />
+            <text x="16" y="8" fill="white" font-size="6" font-weight="bold" font-family="sans-serif">PDF</text>
+            <rect x="14" y="14" width="20" height="2" fill="#CC0000" opacity="0.4" />
+            <rect x="14" y="19" width="20" height="2" fill="#CC0000" opacity="0.4" />
+            <rect x="14" y="24" width="14" height="2" fill="#CC0000" opacity="0.4" />
+            <rect x="14" y="29" width="20" height="2" fill="#CC0000" opacity="0.4" />
+            <rect x="14" y="34" width="16" height="2" fill="#CC0000" opacity="0.4" />
+          </svg>
+        </div>
+        <span class="icon-label">My Resume</span>
+      </div>
+
+      <div class="desktop-icon" data-app="contact">
+        <div class="icon-img">
+          <svg viewBox="0 0 48 48" width="48" height="48">
+            <rect x="4" y="10" width="40" height="28" rx="3" fill="#E8D898" stroke="#B0942C" stroke-width="1.5" />
+            <path d="M4 13 L24 28 L44 13" fill="none" stroke="#B0942C" stroke-width="1.5" />
+            <path d="M4 38 L18 26" fill="none" stroke="#B0942C" stroke-width="1" opacity="0.5" />
+            <path d="M44 38 L30 26" fill="none" stroke="#B0942C" stroke-width="1" opacity="0.5" />
+          </svg>
+        </div>
+        <span class="icon-label">Contact Me</span>
+      </div>
+
+      <div class="desktop-icon" data-app="competitions">
+        <div class="icon-img">
+          <svg viewBox="0 0 48 48" width="48" height="48">
+            <path d="M14 8 L14 18 Q14 28 24 32 Q34 28 34 18 L34 8 Z" fill="#FFD700" stroke="#DAA520"
+              stroke-width="1.5" />
+            <rect x="20" y="32" width="8" height="4" fill="#DAA520" />
+            <rect x="16" y="36" width="16" height="3" rx="1" fill="#DAA520" />
+            <text x="19" y="24" fill="#B8860B" font-size="14" font-weight="bold" font-family="serif">★</text>
+            <path d="M8 10 Q2 10 2 16 Q2 22 10 20" fill="none" stroke="#DAA520" stroke-width="1.5" />
+            <path d="M40 10 Q46 10 46 16 Q46 22 38 20" fill="none" stroke="#DAA520" stroke-width="1.5" />
+          </svg>
+        </div>
+        <span class="icon-label">Competitions</span>
+      </div>
+
       <div class="desktop-icon" data-app="recycle-bin" id="recycle-bin-icon">
         <div class="icon-img">
           <svg viewBox="0 0 48 48" width="48" height="48">
-            <rect x="12" y="12" width="24" height="28" rx="2" fill="#a0a8b0" stroke="#606870" stroke-width="1.5"/>
-            <rect x="10" y="8" width="28" height="5" rx="2" fill="#b0b8c0" stroke="#606870" stroke-width="1"/>
-            <rect x="20" y="5" width="8" height="4" rx="1" fill="#b0b8c0" stroke="#606870" stroke-width="1"/>
-            <line x1="18" y1="17" x2="18" y2="36" stroke="#606870" stroke-width="1.5"/>
-            <line x1="24" y1="17" x2="24" y2="36" stroke="#606870" stroke-width="1.5"/>
-            <line x1="30" y1="17" x2="30" y2="36" stroke="#606870" stroke-width="1.5"/>
+            <rect x="12" y="12" width="24" height="28" rx="2" fill="#a0a8b0" stroke="#606870" stroke-width="1.5" />
+            <rect x="10" y="8" width="28" height="5" rx="2" fill="#b0b8c0" stroke="#606870" stroke-width="1" />
+            <rect x="20" y="5" width="8" height="4" rx="1" fill="#b0b8c0" stroke="#606870" stroke-width="1" />
+            <line x1="18" y1="17" x2="18" y2="36" stroke="#606870" stroke-width="1.5" />
+            <line x1="24" y1="17" x2="24" y2="36" stroke="#606870" stroke-width="1.5" />
+            <line x1="30" y1="17" x2="30" y2="36" stroke="#606870" stroke-width="1.5" />
           </svg>
         </div>
         <span class="icon-label">Recycle Bin</span>
@@ -235,10 +295,10 @@ select Safe Mode.</p>
     <button id="start-button">
       <span class="start-logo">
         <svg viewBox="0 0 16 16" width="16" height="16">
-          <rect x="1" y="1" width="6" height="6" fill="#FF0000" rx="1"/>
-          <rect x="9" y="1" width="6" height="6" fill="#00B300" rx="1"/>
-          <rect x="1" y="9" width="6" height="6" fill="#0052CC" rx="1"/>
-          <rect x="9" y="9" width="6" height="6" fill="#FFB700" rx="1"/>
+          <rect x="1" y="1" width="6" height="6" fill="#FF0000" rx="1" />
+          <rect x="9" y="1" width="6" height="6" fill="#00B300" rx="1" />
+          <rect x="1" y="9" width="6" height="6" fill="#0052CC" rx="1" />
+          <rect x="9" y="9" width="6" height="6" fill="#FFB700" rx="1" />
         </svg>
       </span>
       <span class="start-text">start</span>
@@ -259,8 +319,8 @@ select Safe Mode.</p>
     <div class="start-menu-header">
       <div class="start-menu-avatar">
         <svg viewBox="0 0 40 40" width="40" height="40">
-          <circle cx="20" cy="15" r="9" fill="#fff"/>
-          <ellipse cx="20" cy="36" rx="14" ry="10" fill="#fff"/>
+          <circle cx="20" cy="15" r="9" fill="#fff" />
+          <ellipse cx="20" cy="36" rx="14" ry="10" fill="#fff" />
         </svg>
       </div>
       <span class="start-menu-username">Developer</span>
@@ -285,6 +345,16 @@ select Safe Mode.</p>
         </div>
         <div class="start-menu-item" data-app="minesweeper">
           <span class="smi-icon">💣</span> Minesweeper
+        </div>
+        <div class="start-menu-separator"></div>
+        <div class="start-menu-item" data-app="resume">
+          <span class="smi-icon">📄</span> My Resume
+        </div>
+        <div class="start-menu-item" data-app="contact">
+          <span class="smi-icon">📧</span> Contact Me
+        </div>
+        <div class="start-menu-item" data-app="competitions">
+          <span class="smi-icon">🏆</span> Competitions
         </div>
         <div class="start-menu-item" data-app="recycle-bin">
           <span class="smi-icon">🗑️</span> Recycle Bin
@@ -327,8 +397,12 @@ select Safe Mode.</p>
   <div id="clippy-container" class="hidden">
     <div class="clippy-character">
       <div class="clippy-body">
-        <div class="clippy-eye left-eye"><div class="clippy-pupil"></div></div>
-        <div class="clippy-eye right-eye"><div class="clippy-pupil"></div></div>
+        <div class="clippy-eye left-eye">
+          <div class="clippy-pupil"></div>
+        </div>
+        <div class="clippy-eye right-eye">
+          <div class="clippy-pupil"></div>
+        </div>
         <div class="clippy-brow left-brow"></div>
         <div class="clippy-brow right-brow"></div>
       </div>
@@ -352,4 +426,5 @@ select Safe Mode.</p>
   <script src="js/recycle-bin.js"></script>
   <script src="js/main.js"></script>
 </body>
+
 </html>
